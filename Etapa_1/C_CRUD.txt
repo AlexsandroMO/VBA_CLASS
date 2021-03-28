@@ -1,20 +1,20 @@
-Sub cadastro()
+Sub cadastro() 'Função - rotina
 
-Sheets("ACESSO_BANCO").Select
+Sheets("ACESSO_BANCO").Select 'Chama a aba
 
-test = Range("A9")
+test = Range("A9") 'Declara Variável
 produto = Range("C9")
 
-If produto = "" Then
-            MsgBox "[OPS] Não produtos a serem cadastrados. Por preencha os campos de cadastro."
-            Exit Sub
+If produto = "" Then 'if - condição
+            MsgBox "[OPS] Não produtos a serem cadastrados. Por preencha os campos de cadastro." 'Mensagem na tela
+            Exit Sub 'Sai da rotina
 
 ElseIf test = "" Then
     
     Sheets("ACESSO_BANCO").Select
         
-        nome_produto = Cells(9, 3) 'uma forma pegar o valor da célula
-        marca = Range("E9") 'outra forma pegar o valor da célula
+        nome_produto = Cells(9, 3) 'uma forma pegar o valor da célula - Cells - objeto célula (9, 3) - linha e coluna
+        marca = Range("E9") 'outra forma pegar o valor da célula - letra coluna, número linha
         categoria = Range("G9")
         cod = Range("I9")
         qt_enter = Cells(9, "K") 'outra forma pegar o valor da célula
@@ -29,7 +29,7 @@ ElseIf test = "" Then
         
         'Debug.Print last_row, ID
         
-        Range("A" & last_row + 1 & "") = last_row
+        Range("A" & last_row + 1 & "") = last_row 'Escrver na célula
         Range("B" & last_row + 1 & "") = nome_produto
         Range("C" & last_row + 1 & "") = marca
         Range("D" & last_row + 1 & "") = categoria
@@ -56,7 +56,7 @@ ElseIf test = "" Then
     
     Sheets("ACESSO_BANCO").Select
     
-Call clear
+Call clear 'Chama outra função
         
         MsgBox "Cadastro Realizado com Sucesso!"
         
