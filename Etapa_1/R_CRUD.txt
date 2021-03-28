@@ -1,0 +1,128 @@
+Sub leitura_venda()
+
+Sheets("VENDAS").Select
+
+
+    produto = Range("E4")
+    cod = Range("I4")
+    
+    Sheets("CONTROLE_VENDA").Select
+    
+    'Debug.Print cod, produto
+    
+    If cod <> "" And produto <> "" Then
+            Sheets("VENDAS").Select
+            Range("E4:I4").Select
+            Selection.ClearContents
+            Range("B2").Select
+            MsgBox "[OPS] Não é possível escolher mais de um campo. Por favor, refaça sua busca ou com produto ou com código", vbCritical, "Atenção!"
+            Exit Sub
+         
+    ElseIf cod <> "" Then
+        
+        Cells.Find(What:=cod, After:=ActiveCell, LookIn:=xlFormulas, _
+                LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, _
+                MatchCase:=False, SearchFormat:=False).Activate
+                
+    ElseIf produto <> "" Then
+        
+        Cells.Find(What:=produto, After:=ActiveCell, LookIn:=xlFormulas, _
+                LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, _
+                MatchCase:=False, SearchFormat:=False).Activate
+    
+    Else
+            Sheets("VENDAS").Select
+            Range("E4:I4").Select
+            Selection.ClearContents
+            Range("B2").Select
+        
+            MsgBox "[OPS] Não foi detectado nenhum produto para localizar. Favor escolha o produto a ser buscado", vbCritical, "Atenção!"
+            Exit Sub
+    End If
+    
+        lin = ActiveCell.Row
+        
+        'Debug.Print lin
+        
+        produto = Range("B" & lin & "")
+        marca = Range("C" & lin & "")
+        categoria = Range("D" & lin & "")
+        cod = Range("E" & lin & "")
+        cost = Range("H" & lin & "")
+        
+        ID = Range("A" & lin & "")
+        
+    Sheets("VENDAS").Select
+    
+        Range("C9") = produto
+        Range("E9") = marca
+        Range("G9") = categoria
+        Range("I9") = cod
+        Range("K9") = cost
+        
+        Range("I4") = cod
+        Range("E4") = produto
+        
+        Range("A9") = ID
+
+
+End Sub
+
+Sub leitura_banco()
+
+
+Sheets("ACESSO_BANCO").Select
+
+    produto = Range("E4")
+    Debug.Print produto
+    
+    If produto = "" Then
+    
+        MsgBox "[OPS] Não foi detectado nenhum produto para localizar. Favor escolha o produto a ser buscado", vbCritical, "Atenção!"
+        Exit Sub
+        
+    Else
+        Sheets("CONTROLE_ESTOQUE").Select
+            
+            Cells.Find(What:=produto, After:=ActiveCell, LookIn:=xlFormulas, _
+                LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, _
+                MatchCase:=False, SearchFormat:=False).Activate
+            
+            lin = ActiveCell.Row
+            
+            ID = Range("A" & lin & "")
+            produto = Range("B" & lin & "")
+            marca = Range("C" & lin & "")
+            categoria = Range("D" & lin & "")
+            cod = Range("E" & lin & "")
+            qt_entrada = Range("G" & lin & "")
+            
+            
+        Sheets("CONTROLE_VENDA").Select
+            
+            Cells.Find(What:=produto, After:=ActiveCell, LookIn:=xlFormulas, _
+                LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, _
+                MatchCase:=False, SearchFormat:=False).Activate
+            
+            lin = ActiveCell.Row
+            
+            cost = Range("H" & lin & "")
+        
+        
+        Sheets("ACESSO_BANCO").Select
+        
+            Range("A9") = ID
+            Range("C9") = produto
+            Range("E9") = marca
+            Range("G9") = categoria
+            Range("I9") = cod
+            Range("K9") = qt_entrada
+            Range("M9") = cost
+            
+            Range("I4") = cod
+            
+    End If
+
+
+End Sub
+
